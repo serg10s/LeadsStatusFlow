@@ -1,4 +1,4 @@
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const starsContainer = document.querySelector(".stars");
     const numberOfStars = 121; // Количество точек
 
@@ -84,9 +84,9 @@ box.classList.remove('animated')
 });
 
 
-           $(document).ready(function () {
-            var inputElements = document.querySelectorAll('input[type="tel"]');
-    
+$(document).ready(function () {
+var inputElements = document.querySelectorAll('input[type="tel"]');
+
             inputElements.forEach(function (input) {
                 var iti = window.intlTelInput(input, {
                     autoPlaceholder: "aggressive",
@@ -147,3 +147,26 @@ box.classList.remove('animated')
             }
           
         } 
+
+//const apiKey = "ba67df6a-a17c-476f-8e95-bcdb75ed3958"
+//localStorage.setItem("api_key", apiKey);
+//
+//document.addEventListener("submit", async function (e){
+//    e.preventDefault()
+//
+//    try {
+//        const response = await fetch("http://127.0.0.1:8000/send", {
+//            method: "POST",
+//            headers: {
+//                "Content-Type": "application/json",
+//                "Authorization": localStorage.getItem('api_key')
+//            }
+//        })
+//        let result = await response.json()
+//        console.log(result)
+//
+//    }
+//    catch (error) {
+//        console.log("Error: " + error.message)
+//    }
+//})

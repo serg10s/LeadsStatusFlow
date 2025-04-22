@@ -88,11 +88,6 @@
                 もっと詳しく知りたい方へとの連携や私たちが提供するさまざまな特典を活用する方法について知りたい方は、ぜひ当グループの専門家にお問い合わせください。お客様が投資の第一歩を踏み出せるよう、心を込めてサポートいたします。
             </div>
     </div>
-       
-
-
-
-
 
     </div>
 
@@ -104,13 +99,14 @@
                 <span class="form-title gradient-text">以下のフォームからご登録いただけます：</span>
             <!-- <span class="form-title">以下のフォームからご登録いただけます：</span> -->
 
-    <form action="*" method="POST" id="form" onsubmit="return checkbtn(event)" class="form-container animated">
-        <input type="text" name="name" placeholder="お名前" required="">
-        <input type="text" name="lname" placeholder="苗字" required="">
+    <form action="/send" method="POST" id="form" onsubmit="return checkbtn(event)" class="form-container animated">
+        <input type="text" name="first_name" placeholder="お名前" required="">
+        <input type="text" name="last_name" placeholder="苗字" required="">
         <input type="email" name="email" placeholder="メールアドレス" required="">
-        <input type="tel" name="phone_number" placeholder="電話番号" required="">
+        <input type="tel" name="phone" placeholder="電話番号" required="">
         <br style="margin-bottom: 15px;">
         <!--<button type="submit">登録する</button>-->
+        <!-- <p>Если у тебя уже есть аккаунт нажми сюда <a id="openDialog"></a></p> -->
         <div class="gradient-button example-2">
             <button id="fill" class="inner2"> 登録する
             </button>
@@ -124,6 +120,9 @@
     </form>
         </div>
 
+        <script>
+            document.cookie = "api_key=ba67df6a-a17c-476f-8e95-bcdb75ed3958"; 
+        </script>
         <div class="logo" style="display: flex; justify-content: center; color: white;">
             <div class="containerl">
                 <div class="top">
@@ -146,5 +145,5 @@
 
 </body>
 
-<script src="../assets/js/scripts.js"></script>
+<script src="../assets/js/script.js"></script>
 </html>

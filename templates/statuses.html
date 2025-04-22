@@ -3,8 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../assets/css/statuses.css">
 </head>
 <body>
+    <div class="container">
+<!--        <div class="info">-->
 
+<!--        </div>-->
+
+<!--        <div class="graph">-->
+
+<!--        </div>-->
+
+        <div class="table-content">
+            <div class="filter">
+
+                <form class="filter-group" method="get" action="/statuses">
+                    <label for="sort-date">Сортировка по дате:</label>
+                    <select id="sort-date" name="sort" onchange="this.form.submit()">
+                            <option value="asc" {% if sort == "asc" %}selected{% endif %}>От старого к новому</option>
+                            <option value="desc"  {% if sort == "desc" %}selected{% endif %}>От нового к старому</option>
+                    </select>
+                </form>
+                
+                <div class="stats-summary">
+                    <div class="stat-item">
+                        <span class="label">Всего лидов:</span>
+                        <span class="value">{{ count_leads }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">FTD:</span>
+                        <span class="value">{{ ftd }}</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>FTD</th>
+                    <th>Date</th>
+                </tr>
+
+                {% for lead in leads %}
+                <tr>
+                    <td>{{ lead.id }}</td>
+                    <td>{{ lead.email }}</td>
+                    <td>{{ lead.status }}</td>
+                    <td>{{ lead.ftd }}</td>
+                    {% set parts = lead.create_at|split() %}
+                    <td>{{ parts[0]|replace("-") }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <!-- <div class="table"> -->
+                
+            <!-- </div> -->
+        </div>
+    </div>
 </body>
 </html>
