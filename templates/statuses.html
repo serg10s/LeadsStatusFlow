@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Statuses</title>
     <link rel="stylesheet" href="../assets/css/statuses.css">
 </head>
 <body>
     <div class="container">
+
+                <button id="update-statuses">Update statuses</button>
+
+
 <!--        <div class="info">-->
 
 <!--        </div>-->
@@ -19,16 +23,16 @@
             <div class="filter">
 
                 <form class="filter-group" method="get" action="/statuses">
-                    <label for="sort-date">Сортировка по дате:</label>
+                    <label for="sort-date">Sort by date:</label>
                     <select id="sort-date" name="sort" onchange="this.form.submit()">
-                            <option value="asc" {% if sort == "asc" %}selected{% endif %}>От старого к новому</option>
-                            <option value="desc"  {% if sort == "desc" %}selected{% endif %}>От нового к старому</option>
+                            <option value="asc" {% if sort == "asc" %}selected{% endif %}>From old to new</option>
+                            <option value="desc"  {% if sort == "desc" %}selected{% endif %}>From new to old</option>
                     </select>
                 </form>
-                
+
                 <div class="stats-summary">
                     <div class="stat-item">
-                        <span class="label">Всего лидов:</span>
+                        <span class="label">Total leads:</span>
                         <span class="value">{{ count_leads }}</span>
                     </div>
                     <div class="stat-item">
@@ -37,6 +41,7 @@
                     </div>
 
                 </div>
+
             </div>
 
             <table>
@@ -52,7 +57,7 @@
                 <tr>
                     <td>{{ lead.id }}</td>
                     <td>{{ lead.email }}</td>
-                    <td>{{ lead.status }}</td>
+                    <td>{{ lead.status[-1] }}</td>
                     <td>{{ lead.ftd }}</td>
                     {% set parts = lead.create_at|split() %}
                     <td>{{ parts[0]|replace("-") }}</td>
@@ -65,4 +70,24 @@
         </div>
     </div>
 </body>
+<script>
+    document.getElementById('update-statuses').addEventListener('click', async () => {
+        await fetch("http://0.0.0.0:3000/update-statuses")
+        window.location.reload()
+    })
+</script>
+<style>
+    button {
+        background-color: #32374a;
+        color: #ffffff;
+        margin-bottom: 5px; 
+        padding: 5px; 
+        border-radius: 10px; 
+        border-color: #3c4158;         
+    }
+    
+    button:hover {
+        background-color: #282c3f;    
+    }
+</style>
 </html>

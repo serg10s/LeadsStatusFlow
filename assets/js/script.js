@@ -1,3 +1,5 @@
+document.cookie = "api_key=ba67df6a-a17c-476f-8e95-bcdb75ed3958"; 
+
 document.addEventListener("DOMContentLoaded", function () {
     const starsContainer = document.querySelector(".stars");
     const numberOfStars = 121; // Количество точек
@@ -22,10 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
  document.addEventListener("DOMContentLoaded", function () {
     const infoBoxes = document.querySelectorAll('.info-box');
     const inner = document.querySelectorAll('.inner')
-    // const formContainer = document.querySelector('.form-container');
     const logo = document.querySelector('.an');
 
-    // Функция для проверки видимости элемента
     function isElementInViewport(el) {
         if (!el) return false;
         const rect = el.getBoundingClientRect();
@@ -90,21 +90,31 @@ var inputElements = document.querySelectorAll('input[type="tel"]');
             inputElements.forEach(function (input) {
                 var iti = window.intlTelInput(input, {
                     autoPlaceholder: "aggressive",
-                    geoIpLookup: function (callback) {
-                        $.get("http://ipinfo.io", function () { }, "jsonp").always(
-                            function (resp) {
-                                var countryCode = resp && resp.country ? resp.country : "";
-                                callback(countryCode);
-                            }
-                        );
-                    },
-                    // hiddenInput: "phone_number_hidden",
+
+                formatOnDisplay: true,
+                geoIpLookup: function(callback) {
+                fetch('https://ipinfo.io/json', {
+                    cache: 'reload'
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json()
+                    }
+                    throw new Error('Failed: ' + response.status)
+                }).then(ipjson => {
+
+                    callback(ipjson.country)
+                }).catch(e => {
+
+                    callback('UA')
+                })
+            },
                     hiddenInput: "phone_number",
 
 
-                    onlyCountries: ['JP'],
+                    initialCountry: "auto",
+                    // onlyCountries: ['JP'],
                     // onlyCountries: ['AT', 'BE', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'IS', 'IE', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'MC', 'NL', 'NO', 'PT', 'ES', 'SE', 'CH', 'GB', "UA"],
-                    preferredCountries: ["JP"],
+                    // preferredCountries: ["JP"],
                     separateDialCode: true,
                     utilsScript:
                         "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js",
@@ -148,25 +158,3 @@ var inputElements = document.querySelectorAll('input[type="tel"]');
           
         } 
 
-//const apiKey = "ba67df6a-a17c-476f-8e95-bcdb75ed3958"
-//localStorage.setItem("api_key", apiKey);
-//
-//document.addEventListener("submit", async function (e){
-//    e.preventDefault()
-//
-//    try {
-//        const response = await fetch("http://127.0.0.1:8000/send", {
-//            method: "POST",
-//            headers: {
-//                "Content-Type": "application/json",
-//                "Authorization": localStorage.getItem('api_key')
-//            }
-//        })
-//        let result = await response.json()
-//        console.log(result)
-//
-//    }
-//    catch (error) {
-//        console.log("Error: " + error.message)
-//    }
-//})
