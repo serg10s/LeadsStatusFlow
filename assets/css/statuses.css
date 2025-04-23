@@ -1,0 +1,117 @@
+body {
+    background-color: #1c1f2b;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #2a2e3d;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    min-width: 600px;
+    width: fit-content;
+  }
+  
+  th, td {
+    padding: 16px 24px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #32374a;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid #3c4158;
+  }
+  
+  td {
+    font-size: 15px;
+    color: #dcdce0;
+    border-bottom: 1px solid #3c4158;
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+  
+  tr:nth-child(even) td {
+    background-color: #2f3345;
+  }
+  
+  tr:hover td {
+    background-color: #3a3f54;
+    transition: background-color 0.2s ease;
+  }
+  
+.filter {
+  background-color: #2a2e3d;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+.filter-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #cdd2e1;
+}
+
+.stats-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #282c3f;
+  border-radius: 10px;
+  border: 1px solid #3a3f51;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 120px;
+  color: #fff;
+}
+
+.stat-item .label {
+  font-size: 13px;
+  color: #a0a3ad;
+  margin-bottom: 4px;
+}
+
+.stat-item .value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+
+#sort-date {
+  background-color: #32374a;
+  color: #ffffff;
+  border: 1px solid #3c4158;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  outline: none;
+}
