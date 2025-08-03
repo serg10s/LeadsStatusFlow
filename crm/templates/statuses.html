@@ -22,7 +22,7 @@
         <div class="table-content">
             <div class="filter">
 
-                <form class="filter-group" method="get" action="/statuses">
+                <form class="filter-group" method="get" action="/">
                     <label for="sort-date">Sort by date:</label>
                     <select id="sort-date" name="sort" onchange="this.form.submit()">
                             <option value="asc" {% if sort == "asc" %}selected{% endif %}>From old to new</option>
@@ -72,7 +72,7 @@
 </body>
 <script>
     document.getElementById('update-statuses').addEventListener('click', async () => {
-        await fetch("http://0.0.0.0:3000/update-statuses")
+        await fetch("http://127.0.0.1:8000/update-statuses")
         window.location.reload()
     })
 </script>

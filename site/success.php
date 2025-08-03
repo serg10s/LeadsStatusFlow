@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+$email = $_SESSION['email'] ?? '';;
+$phone = $_SESSION['phone'] ?? '';;
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -80,8 +87,8 @@
 
         <div class="info-box">
             <h3>Information about your application</h3>
-            <div class="info-item"><span>Email: </span><span>{{ email }}</span></div>
-            <div class="info-item"><span>Phone number: </span><span>{{ phone }}</span></div>
+            <div class="info-item"><span>Email: </span><span><?= htmlspecialchars($email) ?></span></div>
+            <div class="info-item"><span>Phone number: </span><span><?= htmlspecialchars($phone) ?></span></div>
             <div class="info-item"><span>Date of submission: </span><span id="current-date"></span></div>
         </div>
 

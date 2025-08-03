@@ -1,5 +1,3 @@
-document.cookie = "api_key=ba67df6a-a17c-476f-8e95-bcdb75ed3958"; 
-
 document.addEventListener("DOMContentLoaded", function () {
     const starsContainer = document.querySelector(".stars");
     const numberOfStars = 121; // Количество точек

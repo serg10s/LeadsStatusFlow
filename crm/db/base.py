@@ -29,7 +29,7 @@ class LeadData(Base):
     phone = Column(String(100), index=True)
     ip = Column(Text, index=True, nullable=False)
 
-    password = Column(String, default='qwerty12')
+    password = Column(String, default='qwerty123')
     landing_url = Column(Text, index=True)
 
     create_at = Column(DateTime, index=True, default=datetime.now)

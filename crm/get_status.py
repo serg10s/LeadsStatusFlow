@@ -15,7 +15,9 @@ def get_statuses_from_api():
 def save_statuses_to_db(db: Session, leads):
 
     for items in leads:
+        print(items)
         lead = db.query(LeadData).filter_by(email=items["email"]).first()
+        print(lead)
         if lead:
             new_statuses = list(dict.fromkeys(lead.status + items["status"]))
             lead.status = new_statuses
@@ -28,7 +30,7 @@ def update_lead_statuses(db: Session):
                         "status": "success",
                         "data":
                         [
-                                {"email": "fdf@gmail.com", "status": ["callback", "noanswer", "lowpot"]},
+                                {"email": "name@gmail.com", "status": ["callback", "noanswer", "lowpot"]},
                                 {"email": "afa@gmail.com", "status": ["noanswer"]},
                         ]}
 

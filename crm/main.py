@@ -1,12 +1,13 @@
-import requests
-from fastapi import FastAPI, Request, Depends, Form, HTTPException
+from fastapi import FastAPI, Request, Depends, Form, HTTPException, Header
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from db.base import LeadData
 from db.database import SessionLocal, engine, Base, get_db
+from db.schemas import CreateLead
 from sqlalchemy.orm import Session
 from sqlalchemy import asc, desc
+# import requests
 
 from get_status import *
 
@@ -30,15 +31,15 @@ def replace_string(value, delimiter="-"):
 templates.env.filters["split"] = split_string
 templates.env.filters["replace"] = replace_string
 
-API_KEY = "ba67df6a-a17c-476f-8e95-bcdb75ed3958"  # Exemple
+API_KEY = "ba67df6a-a17c-476f-8e95-bcdb75ed3958"
+
+
+def verify_api_key(x_api_key: str = Header(...)):
+    if x_api_key != API_KEY:
+        raise HTTPException(status_code=403, detail="Forbidden")
 
 
 @app.get('/', response_class=HTMLResponse)
-async def form_page(request: Request):
-    return templates.TemplateResponse(request=request, name='index.html')
-
-
-@app.get('/statuses', response_class=HTMLResponse)
 async def leads_statuses(request: Request, db: Session = Depends(get_db), sort: str = "desc"):
     sort_order = asc(LeadData.create_at) if sort == 'asc' else desc(LeadData.create_at)
     leads = db.query(LeadData).order_by(sort_order).all()
@@ -57,25 +58,12 @@ async def update_statuses(db: Session = Depends(get_db)):
     return {"message": "Статусы обновлены!"}
 
 
-@app.post('/send', response_class=HTMLResponse)
-async def send_leads_info(request: Request,
-                          first_name: str = Form(...),
-                          last_name: str = Form(...),
-                          email: str = Form(...),
-                          phone: str = Form(...),
-                          db: Session = Depends(get_db),
-                          ):
-
-    client_ip = request.client.host  # get ip
-    landing_url = str(request.url)  # get domain
-    token = request.cookies["api_key"]
-    if token != API_KEY:
-        raise HTTPException(status_code=403, detail="Неверный API ключ")
-    leads = LeadData(first_name=first_name, last_name=last_name, email=email,
-                     phone=phone, ip=client_ip, landing_url=landing_url)
-    db.add(leads)
+@app.post('/leads/')
+async def create_lead(lead: CreateLead,
+                      db: Session = Depends(get_db),
+                     _: None = Depends(verify_api_key)):  
+    db_lead = LeadData(**lead.dict())
+    db.add(db_lead)
     db.commit()
-    db.refresh(leads)
-    return templates.TemplateResponse(request=request, name='success.html', context={'name': first_name,
-                                                                                     'email': email,
-                                                                                     'phone': phone})
+    db.refresh(db_lead)
+    return {'message': 'Успшно добавлено!'}

