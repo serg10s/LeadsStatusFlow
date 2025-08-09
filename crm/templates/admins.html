@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель</title>
+    <link rel="stylesheet" href="../assets/css/admins.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Административная панель</h1>
+        <div class="user-controls">
+            <input type="text" id="searchInput" placeholder="Поиск пользователей..." class="search-input">
+        </div>
+        
+        <div class="user-list-container">
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Имя</th>
+                        <th>Email</th>
+                        <th>Роль</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <!-- Строки пользователей будут добавляться здесь -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="notification" id="notification"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/auth_reg.css">
+    <title>Auth</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="continue">
+            <a href="github">Continue with GitHub</a>
+        </div>
+
+        <form action="/submit" method='post'>
+            <label for="">
+                <span>Enter email:</span>
+                <input class="form-control" type="text" name="email" placeholder="Login">
+            </label>
+
+            <label for="">
+                <span>Password:</span>
+                <input class="form-control" type="password" name="password">
+            </label>
+
+            <button type="submit">Submit</button>
+
+            {% if error %}
+                <div style="color: red; margin-top: 20px;">
+                    {{ error }}
+                </div>
+            {% endif %}
+        </form>
+
+        <p>Don't have an account? <a class="switch-page" href="">Register</a></p>
+    </div>
+</body>
+
+</html>

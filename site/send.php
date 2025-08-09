@@ -1,12 +1,11 @@
 <?php
-echo "PHP работает<br>";
 $data = [
    'first_name' => $_POST['first_name'],
    'last_name' => $_POST['last_name'],
    'email' => $_POST['email'], 
    'phone' => $_POST['phone_number'], 
    'ip' =>  $_SERVER['REMOTE_ADDR'],
-   'landing_url' => 'MTF',
+   'landing_url' => 'MUFG',
 ];
 
 $payload = json_encode($data);
@@ -37,12 +36,10 @@ if ($response === false) {
 curl_close($curl);
 
 
-
 session_start();
 
 $_SESSION['email'] = $_POST['email'];
 $_SESSION['phone'] = $_POST['phone_number'];
 
 header("Location: success.php");
-
 ?>

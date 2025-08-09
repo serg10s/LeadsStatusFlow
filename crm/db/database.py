@@ -1,21 +1,14 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from sqlalchemy.orm import declarative_base
 
-# SQLite for local development (can be replaced with PostgreSQL URL)
-SQLALCHEMY_DATABASE_URL = "sqlite:///./leads.db"
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./leads.db"
+engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=True)
+new_async_session = async_sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+async def get_session():
+    async with new_async_session() as session:
+        yield session
+
 Base = declarative_base()
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
