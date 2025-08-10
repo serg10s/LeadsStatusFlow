@@ -11,3 +11,12 @@ class CreateLead(BaseModel):
     password: str | None = Field(max_length=200)
 
     model_config = ConfigDict(extra='forbid')
+
+
+class CreateAdmin(BaseModel):
+    first_name: str = Field(max_length=100)
+    last_name: str = Field(max_length=100)
+    email: EmailStr
+    password: str
+
+    model_config = ConfigDict(extra='forbid')

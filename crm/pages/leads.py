@@ -21,7 +21,6 @@ def verify_api_key(x_api_key: str = Header(...)):
 @leads_router.get('/statuses', response_class=HTMLResponse)
 async def leads_statuses(request: Request, session: AsyncSession = Depends(get_session)):
     leads_select = await session.execute(select(LeadModel))
-
     leads = leads_select.scalars().all()
     return templates.TemplateResponse(request=request, name='statuses.html', context={'leads': leads}
                                                                                     #   'ftd': ftd_count,

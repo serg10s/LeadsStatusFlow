@@ -1,8 +1,9 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, Text, String, Boolean, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, Text, String, Boolean, DateTime, ForeignKey, Enum
 from db.database import Base
 from sqlalchemy.types import TypeDecorator, TEXT
 import json
+import enum
 
 
 class JSONEncodedList(TypeDecorator):
@@ -17,6 +18,12 @@ class JSONEncodedList(TypeDecorator):
         if value is None:
             return []
         return json.loads(value)
+
+
+class AdminsStatuses(str, enum.Enum):
+    pending = "pending"
+    approved = "approved"
+    rejected = "rejected"
 
 
 class LeadModel(Base):
@@ -46,4 +53,5 @@ class AdminsModel(Base):
     password = Column(String)
 
     create_at = Column(DateTime, index=True, default=datetime.now)
-    super_admin = Column(Boolean, index=True, default=True)
+    statuses = Column(Enum(AdminsStatuses), default=AdminsStatuses.pending, index=True)
+    super_admin = Column(Boolean, index=True, default=False)

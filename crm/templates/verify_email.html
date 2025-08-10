@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подтверждение email</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+        }
+        @media only screen and (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .button {
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <!-- Замените src на URL вашего логотипа -->
+        <img src="https://example.com/logo.png" alt="Логотип компании" class="logo">
+    </div>
+    
+    <div class="content">
+        <h2>Подтвердите ваш email</h2>
+        
+        <p>Здравствуйте, {{ first_name }}!</p>
+        
+        <p>Благодарим вас за регистрацию в нашем сервисе. Для завершения регистрации, пожалуйста, подтвердите ваш email адрес, нажав на кнопку ниже:</p>
+        
+        <p style="text-align: center;">
+            <a href="{{ verification_url }}" class="button">Подтвердить Email</a>
+        </p>
+        
+        <p>Если кнопка не работает, скопируйте и вставьте следующую ссылку в ваш браузер:</p>
+        
+        <p style="word-break: break-all;">
+            <a href="{{ verification_url }}">{{ verification_url }}</a>
+        </p>
+        
+        <p>Если вы не регистрировались в нашем сервисе, пожалуйста, проигнорируйте это письмо.</p>
+    </div>
+    
+    <div class="footer">
+        <p>© {% now "Y" %} Название вашей компании. Все права защищены.</p>
+        <p>
+            <a href="https://example.com/privacy">Политика конфиденциальности</a> | 
+            <a href="https://example.com/terms">Условия использования</a>
+        </p>
+        <p>
+            Вы получили это письмо, потому что этот email был использован для регистрации на нашем сервисе.
+            Если это были не вы, <a href="https://example.com/support">сообщите нам</a>.
+        </p>
+    </div>
+</body>
+</html>

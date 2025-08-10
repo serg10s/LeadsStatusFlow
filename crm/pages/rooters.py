@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from leads import leads_router
-from admins import admins_router
-from access import access_router
+from pages.leads import leads_router
+from pages.admins import admins_router
+from pages.access import access_router
 
 root_router = APIRouter()
 root_router.include_router(leads_router)
