@@ -11,7 +11,7 @@ from core.authx import security, config
 from db.base import AdminsModel
 from db.database import get_session
 from db.schemas import CreateAdmin
-from services.utils import get_password_hash, create_verification_token, get_redis
+from services.utils import get_password_hash, create_verification_token, get_redis, verify_password
 from services.verify_email import send_verification_email
 from services.tg_message import push_telegram_admin
 from config import settings, VERIFICATION_TOKEN_EXPIRE_HOURS, ALGORITHM
@@ -24,17 +24,23 @@ async def login(request: Request):
 
 
 @access_router.post('/auth')
-async def submit(email: str = Form(...), password: str = Form(...)):
-    if email == "test@gmail.com" and password == "test":
-        token = security.create_access_token(uid=email)
-        redirect = RedirectResponse(url="/statuses", status_code=303)  # replace “post” to “get”
-        redirect.set_cookie(
-                key=config.JWT_ACCESS_COOKIE_NAME,
-                value=token,
-                httponly=True,
-                max_age=60, # seconds
-                secure=False)  # Для разработки без HTTPS
-        return redirect
+async def submit(email: str = Form(...), password: str = Form(...),
+                 session: AsyncSession = Depends(get_session)):
+
+    admins_select = await session.execute(select(AdminsModel).where(AdminsModel.email == email)) 
+    desired_admin = admins_select.scalar_one_or_none()   
+
+    if desired_admin:
+        if verify_password(password, desired_admin.password):  # checking password
+            token = security.create_access_token(uid=email)
+            redirect = RedirectResponse(url="/statuses", status_code=303)  # replace “post” to “get”
+            redirect.set_cookie(
+                    key=config.JWT_ACCESS_COOKIE_NAME,
+                    value=token,
+                    httponly=True,
+                    max_age=60, # seconds
+                    secure=False)  # Для разработки без HTTPS
+            return redirect
     raise HTTPException(401, detail={"message": "Bad credentials"})
 
 
@@ -42,7 +48,7 @@ async def submit(email: str = Form(...), password: str = Form(...)):
 async def sing_up(request: Request):
     return templates.TemplateResponse(request=request, name='reg.html')
 
-    
+
 @access_router.post('/register')
 async def register(
     first_name: str = Form(...), last_name: str = Form(...),
@@ -52,7 +58,7 @@ async def register(
     admins_select = await session.execute(select(AdminsModel).where(AdminsModel.email == email)) 
     desired_admin = admins_select.scalar_one_or_none()
     if desired_admin:
-        raise HTTPException(status_code=400, detail="Пользователь с таким именем или email уже существует.")
+        raise HTTPException(status_code=400, detail="Пользователь уже существует.")
 
     user_data = {
         "first_name": first_name,
@@ -72,6 +78,7 @@ async def register(
     await send_verification_email(email, f"http://{verification_url}") # on prod https
     
     return {"message": "Письмо с подтверждением отправлено на ваш email"}
+
 
 @access_router.get("/verify-email")
 async def verify_email(token: str, session: AsyncSession = Depends(get_session)):
@@ -97,6 +104,7 @@ async def verify_email(token: str, session: AsyncSession = Depends(get_session))
     await push_telegram_admin(json.loads(user_data.decode()))  # sending to telegram
 
     db_admins = AdminsModel(**admins_schema.dict()) # save admin to db
+
     session.add(db_admins)
     await session.commit()
     await session.refresh(db_admins)

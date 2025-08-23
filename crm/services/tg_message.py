@@ -2,11 +2,9 @@ import aiohttp
 from config import settings
 import json
 
-test_data = {'first_name': 'admin', 'last_name': 'admin', 'email': 'quappomozisei-7352@yopmail.com', 'password': '$2b$12$GlnFRqgzSdbv6/EkGC9dguGUJE/0X86TAPlua0NLDoojpfrIKUdDq'}
-
 
 def creating_text(data: dict):
-    return f"Full name: {data['last_name']} {data['first_name']}\nEmail: {data['email']}"
+    return f"First name: {data['last_name']}\nLast name: {data['first_name']}\nEmail: {data['email']}"
     
 
 async def sendig_admins_for_verification(url: str, chat_id: str, text: str, keyboard=None):
